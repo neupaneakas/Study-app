@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BottomNavigation } from "@/components/Layout/BottomNavigation";
 import { AppProvider } from "@/contexts/AppContext";
 import { ThemeProvider } from "next-themes";
+import Head from "next/head"; // <- add this
+
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Homework from "./pages/Homework";
@@ -26,6 +28,24 @@ const App = () => (
     <TooltipProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <AppProvider>
+          <Head>
+            {/* PWA META TAGS */}
+            <meta name="application-name" content="PWA App" />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+            <meta name="apple-mobile-web-app-title" content="PWA App" />
+            <meta name="description" content="Best PWA App in the world" />
+            <meta name="format-detection" content="telephone=no" />
+            <meta name="mobile-web-app-capable" content="yes" />
+            <meta name="theme-color" content="#000000" />
+            <link rel="manifest" href="/manifest.json" />
+            <link rel="apple-touch-icon" href="public/icon.png" />
+            <link rel="apple-touch-icon" sizes="512x512" href="public/icon.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="public/icon.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="public/icon.png" />
+          </Head>
+
+          {/* Existing App Components */}
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -42,7 +62,6 @@ const App = () => (
                 <Route path="/settings/profile" element={<Profile />} />
                 <Route path="/settings/integrations" element={<Integrations />} />
                 <Route path="/settings/about" element={<About />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <BottomNavigation />
